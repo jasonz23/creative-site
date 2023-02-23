@@ -1,3 +1,6 @@
+#Check it out at
+https://jasonz23.github.io/creative-site/
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
