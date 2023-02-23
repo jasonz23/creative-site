@@ -8,16 +8,12 @@ import { apis } from "../static/apis";
 export const getColorPalette = (): ThunkAction<void, RootState, unknown, AnyAction> => async (dispatch) =>
 {
     dispatch(setLoadingIcon(true));
-    const response = await fetch('http://colormind.io/api/', {
-        method: 'POST',
-        body: JSON.stringify({
-            model: 'default',
-            input : [[44,43,44],[90,83,82],"N","N","N"],        
-        })
+    const response = await fetch('https://www.thecolorapi.com/scheme?hex=A33C25&mode=analogic-complement&count=5', {
+        method: 'GET'
     });
     const data = await handleRes(response);
-
-    dispatch(setColorPalette(data));
+    console.log('res', data)
+    dispatch(setColorPalette(data.colors));
     dispatch(setLoadingIcon(false));
 }
 

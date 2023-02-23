@@ -11,7 +11,7 @@ interface SwapColorPalettePayloadState {
 }
 
 interface APIColorPaletteState {
-    result: number[][]
+    
 }
 
 interface SetColorPayloadState {
@@ -27,15 +27,12 @@ const slice = createSlice({
     name: "colorPalette",
     initialState,
     reducers:{
-        setColorPalette: (state: ColorPaletteState, {payload}: PayloadAction<APIColorPaletteState>) => {
-            const newPayload:string[] = payload.result?.map((color) => {
-                let hexString = '#';
-                color.forEach((c) => {
-                    var hex = c.toString(16);
-                    hexString += hex.length == 1 ? "0" + hex : hex;
-                })
-                return hexString;
+        setColorPalette: (state: ColorPaletteState, {payload}: PayloadAction<object[]>) => {
+            console.log(payload)
+            const newPayload:string[] = payload?.map((color: any) => {
+                return color.hex.value;
             })
+            console.log(newPayload);
             state.colorPalette = newPayload;
         },
         swapColorPaletteIndex: (state: ColorPaletteState, {payload}: PayloadAction<SwapColorPalettePayloadState>) => {
