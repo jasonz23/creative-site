@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../slices";
 import { setColor, swapColorPaletteIndex } from "../../slices/colorPalette";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "@mui/material";
+import "./ColorDisplay.css";
 
 interface ColorDisplayState {
   id: string;
@@ -39,7 +40,8 @@ const ColorDisplay = (props: ColorDisplayState): JSX.Element => {
     <div
       key={props.id}
       style={{
-        flex: 1,
+        flex: "1 2 auto",
+        minWidth: 0,
         backgroundColor: "black",
         display: "flex",
         alignItems: "center",
@@ -66,7 +68,7 @@ const ColorDisplay = (props: ColorDisplayState): JSX.Element => {
         />
       ) : (
         <div
-          style={{ color: "white" }}
+          className="color-display-color-value"
           onClick={() => {
             setShowInput(true);
           }}
