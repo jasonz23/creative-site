@@ -1,0 +1,22 @@
+.color-container-root {
+    height: 250px;
+    display: flex !important;
+    flex-direction: row;
+    width:80%;
+    padding:10px;
+    background-color: black;
+    
+}
+
+@media (max-width:600px) {
+    .color-container-root {
+        border: 1 solid ;
+        height: 250px;
+        display: flex !important;
+        flex-direction: row;
+        padding:0px;
+        padding-top: 10px;
+        width: 100%;
+        
+    }
+}
