@@ -14,6 +14,7 @@ import LoadingIcon from "../../components/loading-icon/LoadingIcon";
 import NavBar from "../../components/nav-bar/NavBar";
 import { useAppDispatch, useAppSelector } from "../../slices";
 import { setRandomColor } from "../../slices/colorPalette";
+import { setErrorMessage } from "../../slices/notifications";
 import "./MainPage.css";
 const MainPage = () => {
   const dispatch = useAppDispatch();
@@ -22,6 +23,9 @@ const MainPage = () => {
   );
   const hexcode = useAppSelector(
     (state) => state?.colorPalette?.color?.hexcode
+  );
+  const errorMessage = useAppSelector(
+    (state) => state?.notification?.errorMessage
   );
   const [modeInput, setModeInput] = useState(null);
   const ref = useRef<any>(null);
@@ -44,6 +48,16 @@ const MainPage = () => {
       >
         <h1 style={{ color: colorPalette[0] }}>Color Palette Generator</h1>
         <ColorContainer />
+
+        {errorMessage !== "" ? (
+          <div
+            id="error-message"
+            className="color-error-body"
+            style={{ color: colorPalette[0], backgroundColor: colorPalette[4] }}
+          >
+            errorMessage
+          </div>
+        ) : null}
         <form
           className="color-palette-selector-form"
           ref={ref}
@@ -98,6 +112,9 @@ const MainPage = () => {
                     mode: modeInput ?? "monochrome",
                   })
                 );
+                dispatch(setErrorMessage(""));
+              } else {
+                dispatch(setErrorMessage("Please enter 6 character hex code"));
               }
             }}
           >
