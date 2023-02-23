@@ -2,10 +2,12 @@ import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../slices";
 import { setColorPalette } from "../slices/colorPalette";
+import { setLoadingIcon } from "../slices/notifications";
 import { apis } from "../static/apis";
 
 export const getColorPalette = (): ThunkAction<void, RootState, unknown, AnyAction> => async (dispatch) =>
 {
+    dispatch(setLoadingIcon(true));
     const response = await fetch('http://colormind.io/api/', {
         method: 'POST',
         body: JSON.stringify({
@@ -16,6 +18,7 @@ export const getColorPalette = (): ThunkAction<void, RootState, unknown, AnyActi
     const data = await handleRes(response);
 
     dispatch(setColorPalette(data));
+    dispatch(setLoadingIcon(false));
 }
 
 const handleRes = async (res: any) => {
