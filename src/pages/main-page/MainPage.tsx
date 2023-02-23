@@ -1,20 +1,31 @@
-import { Button } from "@mui/material";
-import React, { useEffect } from "react";
+import {
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+} from "@mui/material";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { getColorPalette } from "../../api/colorMind";
 import ColorContainer from "../../components/color-container/ColorContainer";
 import LoadingIcon from "../../components/loading-icon/LoadingIcon";
 import NavBar from "../../components/nav-bar/NavBar";
 import { useAppDispatch, useAppSelector } from "../../slices";
-
+import { setRandomColor } from "../../slices/colorPalette";
+import "./MainPage.css";
 const MainPage = () => {
   const dispatch = useAppDispatch();
   const colorPalette = useAppSelector(
     (state) => state?.colorPalette?.colorPalette
   );
-  useEffect(() => {
-    console.log(colorPalette);
-  });
+  const hexcode = useAppSelector(
+    (state) => state?.colorPalette?.color?.hexcode
+  );
+  const [modeInput, setModeInput] = useState(null);
+  const ref = useRef<any>(null);
+
   return (
     <>
       <NavBar />
@@ -33,18 +44,82 @@ const MainPage = () => {
       >
         <h1 style={{ color: colorPalette[0] }}>Color Palette Generator</h1>
         <ColorContainer />
-        <Button
-          variant="contained"
-          style={{
-            marginTop: "30px",
-            backgroundColor: "black",
-          }}
-          onClick={() => {
-            dispatch(getColorPalette("-1"));
-          }}
+        <form
+          className="color-palette-selector-form"
+          ref={ref}
+          style={{ backgroundColor: colorPalette[4] }}
         >
-          Generate Random
-        </Button>
+          <TextField
+            id="hexcode"
+            label="Hex Code"
+            variant="outlined"
+            style={{ marginRight: "10px", backgroundColor: "white" }}
+          />
+          <FormControl style={{ minWidth: 120 }}>
+            <InputLabel>Mode</InputLabel>
+            <Select
+              value={modeInput}
+              placeholder="Mode"
+              onChange={(e: any) => {
+                setModeInput(e.target.value);
+              }}
+              style={{ marginLeft: "10px", backgroundColor: "white" }}
+            >
+              <MenuItem value="monochrome">Monochrome</MenuItem>
+              <MenuItem value="monochrome-dark">Monochrome Dark</MenuItem>
+              <MenuItem value="monochrome-light">Monochrome Light</MenuItem>
+              <MenuItem value="analogic">Analogic</MenuItem>
+              <MenuItem value="complement">Complement</MenuItem>
+              <MenuItem value="analogic-complement">
+                Analogic Complement
+              </MenuItem>
+              <MenuItem value="triad">Triad</MenuItem>
+              <MenuItem value="quad">Quad</MenuItem>
+            </Select>
+          </FormControl>
+        </form>
+        <div>
+          <Button
+            variant="contained"
+            style={{
+              marginTop: "30px",
+              backgroundColor: "black",
+              marginRight: "10px",
+            }}
+            onClick={() => {
+              const hex = ref?.current?.elements["hexcode"].value.replace(
+                "#",
+                ""
+              );
+              if (hex.length === 6) {
+                dispatch(
+                  getColorPalette({
+                    hexcode: hex,
+                    mode: modeInput ?? "monochrome",
+                  })
+                );
+              }
+            }}
+          >
+            Generate
+          </Button>
+          <Button
+            variant="contained"
+            style={{
+              marginTop: "30px",
+              backgroundColor: "black",
+              marginLeft: "10px",
+            }}
+            onClick={() => {
+              dispatch(setRandomColor());
+              dispatch(
+                getColorPalette({ hexcode: hexcode, mode: "monochrome" })
+              );
+            }}
+          >
+            Generate Random
+          </Button>
+        </div>
       </div>
     </>
   );
