@@ -1,17 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { PayloadAction } from "@reduxjs/toolkit";
 
+export interface ColorState {
+    hexcode: string,
+    mode: string
+}
+
 interface ColorPaletteState {
     colorPalette: string[],
+    color: ColorState
 }
 
 interface SwapColorPalettePayloadState {
     index: number,
     swap: boolean
-}
-
-interface APIColorPaletteState {
-    
 }
 
 interface SetColorPayloadState {
@@ -21,6 +23,16 @@ interface SetColorPayloadState {
 
 const initialState: ColorPaletteState = {
     colorPalette: [],
+    color: {hexcode:getRandomColor(), mode:"monochrome"}
+}
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
 }
 
 const slice = createSlice({
@@ -28,11 +40,9 @@ const slice = createSlice({
     initialState,
     reducers:{
         setColorPalette: (state: ColorPaletteState, {payload}: PayloadAction<object[]>) => {
-            console.log(payload)
             const newPayload:string[] = payload?.map((color: any) => {
                 return color.hex.value;
             })
-            console.log(newPayload);
             state.colorPalette = newPayload;
         },
         swapColorPaletteIndex: (state: ColorPaletteState, {payload}: PayloadAction<SwapColorPalettePayloadState>) => {
@@ -57,15 +67,23 @@ const slice = createSlice({
                     colorPaletteCopy.push(colorElement);
                 }
             }
-            console.log(colorPaletteCopy)
             state.colorPalette = colorPaletteCopy;
         },
         setColor: (state: ColorPaletteState, {payload}: PayloadAction<SetColorPayloadState>) => {
             state.colorPalette[payload.index] = payload.color;
-        }
+        },
+        setHexCode: (state: ColorPaletteState, {payload}: PayloadAction<string>) => {
+            state.color.hexcode = payload;
+        },
+        setMode: (state: ColorPaletteState, {payload}: PayloadAction<string>) => {
+            state.color.mode = payload;
+        },
+        setRandomColor: (state: ColorPaletteState) => {
+            state.color.hexcode = getRandomColor();
+        },
     }
 })
 
-export const {setColorPalette, swapColorPaletteIndex, setColor} = slice.actions;
+export const {setColorPalette, swapColorPaletteIndex, setColor, setRandomColor, setMode, setHexCode} = slice.actions;
 
 export const colorPalette = slice.reducer;
