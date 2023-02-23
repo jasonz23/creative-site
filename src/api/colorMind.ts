@@ -5,10 +5,24 @@ import { setColorPalette } from "../slices/colorPalette";
 import { setLoadingIcon } from "../slices/notifications";
 import { apis } from "../static/apis";
 
-export const getColorPalette = (): ThunkAction<void, RootState, unknown, AnyAction> => async (dispatch) =>
+function getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+export const getColorPalette = (color: string): ThunkAction<void, RootState, unknown, AnyAction> => async (dispatch) =>
 {
+    let c = color.replace("#","");
+    if (color === "-1") {
+        c = getRandomColor()
+    }
+
     dispatch(setLoadingIcon(true));
-    const response = await fetch('https://www.thecolorapi.com/scheme?hex=A33C25&mode=analogic-complement&count=5', {
+    const response = await fetch(`https://www.thecolorapi.com/scheme?hex=${c}&mode=analogic-complement&count=5`, {
         method: 'GET'
     });
     const data = await handleRes(response);
