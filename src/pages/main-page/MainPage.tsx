@@ -55,7 +55,7 @@ const MainPage = () => {
             className="color-error-body"
             style={{ color: colorPalette[0], backgroundColor: colorPalette[4] }}
           >
-            errorMessage
+            {errorMessage}
           </div>
         ) : null}
         <form
