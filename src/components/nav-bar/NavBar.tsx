@@ -11,7 +11,8 @@ const NavBar = (): JSX.Element => {
       position="fixed"
       style={{ height: "50px", backgroundColor: colorPalette[2] }}
     >
-      <div>NAV BAR</div>
+      <div style={{ fontSize: "10px" }}>Color 3</div>
+      <div style={{ display: "flex" }}></div>
     </AppBar>
   );
 };
