@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/jasonz23/creative-site/static/css/main.a506d19b.css",
+    "main.js": "/jasonz23/creative-site/static/js/main.d9cf57a6.js",
+    "static/js/787.9e324bc3.chunk.js": "/jasonz23/creative-site/static/js/787.9e324bc3.chunk.js",
+    "index.html": "/jasonz23/creative-site/index.html",
+    "main.a506d19b.css.map": "/jasonz23/creative-site/static/css/main.a506d19b.css.map",
+    "main.d9cf57a6.js.map": "/jasonz23/creative-site/static/js/main.d9cf57a6.js.map",
+    "787.9e324bc3.chunk.js.map": "/jasonz23/creative-site/static/js/787.9e324bc3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a506d19b.css",
+    "static/js/main.d9cf57a6.js"
+  ]
+}
