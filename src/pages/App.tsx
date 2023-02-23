@@ -8,7 +8,7 @@ import { useAppDispatch } from "../slices";
 function App() {
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(getColorPalette());
+    dispatch(getColorPalette("-1"));
   }, []);
 
   return (

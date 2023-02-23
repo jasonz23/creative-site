@@ -23,10 +23,12 @@ const MainPage = () => {
         style={{
           backgroundColor: colorPalette[3],
           height: "100vh",
+          width: "100%",
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           flexDirection: "column",
+          position: "fixed",
         }}
       >
         <h1 style={{ color: colorPalette[0] }}>Color Palette Generator</h1>
@@ -38,10 +40,10 @@ const MainPage = () => {
             backgroundColor: "black",
           }}
           onClick={() => {
-            dispatch(getColorPalette());
+            dispatch(getColorPalette("-1"));
           }}
         >
-          Generate
+          Generate Random
         </Button>
       </div>
     </>
