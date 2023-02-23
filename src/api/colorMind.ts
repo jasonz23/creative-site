@@ -22,7 +22,7 @@ export const getColorPalette = (color: string): ThunkAction<void, RootState, unk
     }
 
     dispatch(setLoadingIcon(true));
-    const response = await fetch(`https://www.thecolorapi.com/scheme?hex=${c}&mode=analogic-complement&count=5`, {
+    const response = await fetch(`https://www.thecolorapi.com/scheme?hex=${c}&mode=monochrome&count=5`, {
         method: 'GET'
     });
     const data = await handleRes(response);
