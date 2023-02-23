@@ -1,0 +1,9 @@
+.color-display-color-value {
+    color:white;
+}
+@media (max-width: 600px) {
+    .color-display-color-value {
+        color:white;
+        font-size: 10px;
+    }
+}
