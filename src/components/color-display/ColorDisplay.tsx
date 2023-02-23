@@ -7,6 +7,7 @@ import { setColor, swapColorPaletteIndex } from "../../slices/colorPalette";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "@mui/material";
 import "./ColorDisplay.css";
+import { toast } from "react-toastify";
 
 interface ColorDisplayState {
   id: string;
@@ -19,8 +20,6 @@ const ColorDisplay = (props: ColorDisplayState): JSX.Element => {
 
   useEffect(() => {
     const keyDownHandler = (event: any) => {
-      console.log("User pressed: ", event.key);
-
       if (event.key === "Enter") {
         event.preventDefault();
 
@@ -58,7 +57,12 @@ const ColorDisplay = (props: ColorDisplayState): JSX.Element => {
       {showInput ? (
         <Input
           value={props.color}
-          style={{ color: "white" }}
+          style={{
+            color: "white",
+            flex: "1 2 auto",
+            height: "19px",
+            textAlign: "center",
+          }}
           autoFocus
           onChange={(e) => {
             dispatch(
@@ -96,6 +100,7 @@ const ColorDisplay = (props: ColorDisplayState): JSX.Element => {
           onClick={async () => {
             try {
               await navigator.clipboard.writeText(props.color);
+              toast("Copied!");
             } catch (err) {
               console.error(err);
             }
