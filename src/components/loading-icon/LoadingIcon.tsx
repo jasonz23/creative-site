@@ -8,6 +8,7 @@ const LoadingIcon = () => {
   );
   return showLoadingIcon ? (
     <div className="loading-icon-root">
+      <p style={{ color: "white", fontSize: "20px" }}>Loading ...</p>
       <div className="lds-roller">
         <div></div>
         <div></div>
