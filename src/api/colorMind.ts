@@ -13,7 +13,10 @@ export const getColorPalette = (color: ColorState): ThunkAction<void, RootState,
     });
     const data = await handleRes(response);
     dispatch(setColorPalette(data.colors));
-    dispatch(setLoadingIcon(false));
+    setTimeout(() => {
+        dispatch(setLoadingIcon(false));
+    }, 1300);
+    
 }
 
 const handleRes = async (res: any) => {
