@@ -130,7 +130,10 @@ const MainPage = () => {
             onClick={() => {
               dispatch(setRandomColor());
               dispatch(
-                getColorPalette({ hexcode: hexcode, mode: "monochrome" })
+                getColorPalette({
+                  hexcode: hexcode,
+                  mode: modeInput ?? "monochrome",
+                })
               );
             }}
           >
