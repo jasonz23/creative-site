@@ -8,7 +8,8 @@ export interface ColorState {
 
 interface ColorPaletteState {
     colorPalette: string[],
-    color: ColorState
+    color: ColorState,
+    previous: string[][],
 }
 
 interface SwapColorPalettePayloadState {
@@ -23,15 +24,17 @@ interface SetColorPayloadState {
 
 const initialState: ColorPaletteState = {
     colorPalette: [],
-    color: {hexcode:getRandomColor(), mode:"monochrome"}
+    color: {hexcode:getRandomColor(), mode:"monochrome"},
+    previous:[]
 }
 
-function getRandomColor() {
+export function getRandomColor() {
     var letters = '0123456789ABCDEF';
     var color = '';
     for (var i = 0; i < 6; i++) {
       color += letters[Math.floor(Math.random() * 16)];
     }
+    console.log(color)
     return color;
 }
 
@@ -78,12 +81,12 @@ const slice = createSlice({
         setMode: (state: ColorPaletteState, {payload}: PayloadAction<string>) => {
             state.color.mode = payload;
         },
-        setRandomColor: (state: ColorPaletteState) => {
-            state.color.hexcode = getRandomColor();
-        },
+        addToPrevious: (state: ColorPaletteState, {payload}: PayloadAction<string[]>) => {
+            state.previous.unshift(payload);
+        }
     }
 })
 
-export const {setColorPalette, swapColorPaletteIndex, setColor, setRandomColor, setMode, setHexCode} = slice.actions;
+export const {setColorPalette, swapColorPaletteIndex, setColor, setMode, setHexCode, addToPrevious} = slice.actions;
 
 export const colorPalette = slice.reducer;
