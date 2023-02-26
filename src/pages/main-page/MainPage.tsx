@@ -6,8 +6,7 @@ import {
   Select,
   TextField,
 } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useRef, useState } from "react";
 import { getColorPalette } from "../../api/colorMind";
 import ColorContainer from "../../components/color-container/ColorContainer";
 import LoadingIcon from "../../components/loading-icon/LoadingIcon";
@@ -105,7 +104,7 @@ const MainPage = () => {
                 "#",
                 ""
               );
-              if (hex.length === 6) {
+              if (hex.length === 6 && /^#[0-9A-F]{6}$/i.test(hex)) {
                 dispatch(
                   getColorPalette({
                     hexcode: hex,
