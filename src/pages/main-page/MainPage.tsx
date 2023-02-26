@@ -20,9 +20,6 @@ const MainPage = () => {
   const colorPalette = useAppSelector(
     (state) => state?.colorPalette?.colorPalette
   );
-  const hexcode = useAppSelector(
-    (state) => state?.colorPalette?.color?.hexcode
-  );
   const errorMessage = useAppSelector(
     (state) => state?.notification?.errorMessage
   );

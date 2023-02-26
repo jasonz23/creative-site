@@ -3,7 +3,6 @@ import { ThunkAction } from "redux-thunk";
 import { RootState } from "../slices";
 import { ColorState, setColorPalette } from "../slices/colorPalette";
 import { setLoadingIcon } from "../slices/notifications";
-import { apis } from "../static/apis";
 
 export const getColorPalette = (color: ColorState, time: number): ThunkAction<void, RootState, unknown, AnyAction> => async (dispatch) =>
 {
