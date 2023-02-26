@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 interface ColorDisplayState {
   id: string;
   color: string;
+  main: boolean;
 }
 
 const ColorDisplay = (props: ColorDisplayState): JSX.Element => {
@@ -51,7 +52,7 @@ const ColorDisplay = (props: ColorDisplayState): JSX.Element => {
         style={{
           backgroundColor: props.color,
           width: "100%",
-          height: "160px",
+          height: props.main ? "160px" : "140px",
         }}
       ></div>
       {showInput ? (
@@ -89,12 +90,14 @@ const ColorDisplay = (props: ColorDisplayState): JSX.Element => {
           marginTop: "5px",
         }}
       >
-        <PaletteIcon
-          onClick={() => {
-            setShowInput(!showInput);
-          }}
-          style={{ cursor: "pointer" }}
-        />
+        {props.main ? (
+          <PaletteIcon
+            onClick={() => {
+              setShowInput(!showInput);
+            }}
+            style={{ cursor: "pointer" }}
+          />
+        ) : null}
 
         <ContentCopyIcon
           onClick={async () => {
@@ -108,27 +111,34 @@ const ColorDisplay = (props: ColorDisplayState): JSX.Element => {
           style={{ cursor: "pointer" }}
         />
       </div>
-      <div>
-        <ChevronLeftIcon
-          style={{ color: "white", cursor: "pointer" }}
-          onClick={() => {
-            dispatch(
-              swapColorPaletteIndex({ index: parseInt(props.id), swap: false })
-            );
-          }}
-        />
-        <ChevronRightIcon
-          style={{ color: "white", cursor: "pointer" }}
-          onClick={() => {
-            dispatch(
-              swapColorPaletteIndex({ index: parseInt(props.id), swap: true })
-            );
-          }}
-        />
-      </div>
-      <div>
-        <p style={{ color: "white" }}>Color {props.id}</p>
-      </div>
+      {props.main ? (
+        <div>
+          <ChevronLeftIcon
+            style={{ color: "white", cursor: "pointer" }}
+            onClick={() => {
+              dispatch(
+                swapColorPaletteIndex({
+                  index: parseInt(props.id),
+                  swap: false,
+                })
+              );
+            }}
+          />
+          <ChevronRightIcon
+            style={{ color: "white", cursor: "pointer" }}
+            onClick={() => {
+              dispatch(
+                swapColorPaletteIndex({ index: parseInt(props.id), swap: true })
+              );
+            }}
+          />
+        </div>
+      ) : null}
+      {props.main ? (
+        <div>
+          <p style={{ color: "white" }}>Color {props.id}</p>
+        </div>
+      ) : null}
     </div>
   );
 };
