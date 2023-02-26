@@ -5,17 +5,17 @@ import { ColorState, setColorPalette } from "../slices/colorPalette";
 import { setLoadingIcon } from "../slices/notifications";
 import { apis } from "../static/apis";
 
-export const getColorPalette = (color: ColorState): ThunkAction<void, RootState, unknown, AnyAction> => async (dispatch) =>
+export const getColorPalette = (color: ColorState, time: number): ThunkAction<void, RootState, unknown, AnyAction> => async (dispatch) =>
 {
-    dispatch(setLoadingIcon(true));
+    if (time !== 0) dispatch(setLoadingIcon(true));
     const response = await fetch(`https://www.thecolorapi.com/scheme?hex=${color.hexcode}&mode=${color.mode}&count=5`, {
         method: 'GET'
     });
     const data = await handleRes(response);
     dispatch(setColorPalette(data.colors));
-    setTimeout(() => {
+    if (time !== 0) setTimeout(() => {
         dispatch(setLoadingIcon(false));
-    }, 1300);
+    }, time);
     
 }
 

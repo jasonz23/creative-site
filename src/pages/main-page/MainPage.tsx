@@ -118,10 +118,13 @@ const MainPage = () => {
                 ) {
                   dispatch(addToPrevious(colorPalette));
                   dispatch(
-                    getColorPalette({
-                      hexcode: hex,
-                      mode: modeInput ?? "monochrome",
-                    })
+                    getColorPalette(
+                      {
+                        hexcode: hex,
+                        mode: modeInput ?? "monochrome",
+                      },
+                      0
+                    )
                   );
                   dispatch(setErrorMessage(""));
                 } else {
@@ -143,10 +146,13 @@ const MainPage = () => {
               onClick={() => {
                 dispatch(addToPrevious(colorPalette));
                 dispatch(
-                  getColorPalette({
-                    hexcode: getRandomColor(),
-                    mode: modeInput ?? "monochrome",
-                  })
+                  getColorPalette(
+                    {
+                      hexcode: getRandomColor(),
+                      mode: modeInput ?? "monochrome",
+                    },
+                    0
+                  )
                 );
               }}
             >

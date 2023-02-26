@@ -9,7 +9,7 @@ function App() {
   const dispatch = useAppDispatch();
   const hexcolor = useAppSelector((state) => state?.colorPalette.color.hexcode);
   useEffect(() => {
-    dispatch(getColorPalette({ hexcode: hexcolor, mode: "monochrome" }));
+    dispatch(getColorPalette({ hexcode: hexcolor, mode: "monochrome" }, 1200));
   }, []);
 
   return (
