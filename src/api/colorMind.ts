@@ -2,19 +2,29 @@ import { AnyAction } from "redux";
 import { ThunkAction } from "redux-thunk";
 import { RootState } from "../slices";
 import { ColorState, setColorPalette } from "../slices/colorPalette";
-import { setLoadingIcon } from "../slices/notifications";
+import { setBlurLoadingIcon, setLoadingIcon } from "../slices/notifications";
 
 export const getColorPalette = (color: ColorState, time: number): ThunkAction<void, RootState, unknown, AnyAction> => async (dispatch) =>
 {
-    if (time !== 0) dispatch(setLoadingIcon(true));
+    // If inital call then show loading icon
+    if (time !== 0){
+        dispatch(setLoadingIcon(true));
+    } else {
+        dispatch(setBlurLoadingIcon(true));
+    }
+
+    // If not intial call then show blur loading icon
     const response = await fetch(`https://www.thecolorapi.com/scheme?hex=${color.hexcode}&mode=${color.mode}&count=5`, {
         method: 'GET'
     });
     const data = await handleRes(response);
     dispatch(setColorPalette(data.colors));
-    if (time !== 0) setTimeout(() => {
+    if (time !== 0) { setTimeout(() => {
         dispatch(setLoadingIcon(false));
     }, time);
+    } else {
+        dispatch(setBlurLoadingIcon(false));
+    }
     
 }
 
