@@ -3,12 +3,14 @@ import type { PayloadAction } from "@reduxjs/toolkit";
 
 interface NotificationState {
     loadingIcon: boolean,
-    errorMessage: string
+    errorMessage: string,
+    blurLoadingIcon: boolean,
 }
 
 const initialState: NotificationState = {
     loadingIcon: false,
-    errorMessage: ""
+    errorMessage: "",
+    blurLoadingIcon: false,
 
 }
 
@@ -22,9 +24,12 @@ const slice = createSlice({
         setErrorMessage: (state: NotificationState, {payload}: PayloadAction<string>)=> {
             state.errorMessage = payload;
         },
+        setBlurLoadingIcon: (state: NotificationState, {payload}: PayloadAction<boolean>)=> {
+            state.blurLoadingIcon = payload;
+        },
     }
 })
 
-export const {setLoadingIcon, setErrorMessage} = slice.actions;
+export const {setLoadingIcon, setErrorMessage, setBlurLoadingIcon} = slice.actions;
 
 export const notification = slice.reducer;
